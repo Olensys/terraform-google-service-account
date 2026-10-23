@@ -1,6 +1,6 @@
-# __NAME__
+# terraform-google-service-account
 
-__DESCRIPTION__
+Service account with project roles, optional GKE Workload Identity binding and impersonation grants; keys forbidden in prod
 
 ## Opinions
 
@@ -10,7 +10,7 @@ __DESCRIPTION__
 
 ```hcl
 module "this" {
-  source = "git::https://github.com/Olensys/__NAME__.git?ref=v1.0.0"
+  source = "git::https://github.com/Olensys/terraform-google-service-account.git?ref=v1.0.0"
 
   name = "example"
   context = {
