@@ -4,7 +4,7 @@ tier: capability          # primitive | capability | blueprint
 maturity: experimental    # experimental | stable | deprecated
 description: Service account with project roles, optional GKE Workload Identity binding and impersonation grants; keys forbidden in prod
 owners: [platform]
-upstream: null            # e.g. "terraform-aws-modules/s3-bucket/aws 5.17.0"
+upstream: "terraform-google-modules/service-accounts/google 5.1.0"
 pairs_with: null          # e.g. "terraform-google-gcs-bucket"
 registry_name: terraform-google-service-account
 deprecated: null          # { removal: YYYY-MM-DD, replacement: <repo> }
