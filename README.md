@@ -9,24 +9,25 @@ Service account with project roles, optional GKE Workload Identity binding and i
 - Workload Identity (`roles/iam.workloadIdentityUser`) and impersonation (`roles/iam.serviceAccountTokenCreator`) are granted on the service account itself, not the project.
 - Keys are a last resort: `create_key` is off by default and rejected when `context.environment` is `prod`. A created key lives in state and is exposed only through the sensitive `key` output.
 - Service accounts have no labels. `labels` is kept for interface consistency and is only exposed through the `labels` output.
+- `context.extra_tags` keys and values are normalised to valid GCP label syntax (lowercase, `[^a-z0-9_-]` → `-`, 63 chars); `labels` are applied verbatim and win.
 
 ## Usage
 
 ```hcl
-module "this" {
-  source = "git::https://github.com/Olensys/terraform-google-service-account.git?ref=v1.0.0"
+module "naming" {
+  source  = "git::https://github.com/Olensys/terraform-null-naming.git?ref=v1.0.1"
+  context = var.context
+}
 
-  name       = "example-sa"
+module "this" {
+  source = "git::https://github.com/Olensys/terraform-google-service-account.git?ref=v1.1.0"
+
+  name       = module.naming.name
   project_id = "my-project"
-  context = {
-    organization = "olensys"
-    environment  = "dev"
-    application  = "example"
-    owner        = "platform"
-    cost_center  = "eng"
-  }
+  context = var.context
 
   project_roles = ["roles/logging.logWriter"]
+  labels  = module.naming.labels
 }
 ```
 
