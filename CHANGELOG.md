@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/Olensys/terraform-google-service-account/compare/v1.1.1...v1.1.2) (2026-10-24)
+
+
+### Bug Fixes
+
+* **examples:** unique application slug so concurrent integration runs do not collide ([#3](https://github.com/Olensys/terraform-google-service-account/issues/3)) ([725fb19](https://github.com/Olensys/terraform-google-service-account/commit/725fb19e210634963f4762fe7d2616471d8cc605))
+
 ## [1.1.1](https://github.com/Olensys/terraform-google-service-account/compare/v1.1.0...v1.1.1) (2026-10-24)
 
 
