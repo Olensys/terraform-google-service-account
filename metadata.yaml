@@ -1,7 +1,7 @@
 name: terraform-google-service-account
 cloud: google          # aws | google | common
 tier: capability          # primitive | capability | blueprint
-maturity: experimental    # experimental | stable | deprecated
+maturity: stable    # experimental | stable | deprecated
 description: Service account with project roles, optional GKE Workload Identity binding and impersonation grants; keys forbidden in prod
 owners: [platform]
 upstream: "terraform-google-modules/service-accounts/google 5.1.0"
