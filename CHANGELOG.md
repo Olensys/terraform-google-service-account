@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.1](https://github.com/Olensys/terraform-google-service-account/compare/v1.1.0...v1.1.1) (2026-10-24)
+
+
+### Bug Fixes
+
+* **examples:** pin naming module to v1.0.1 ([ab70691](https://github.com/Olensys/terraform-google-service-account/commit/ab706910eaa0da78983ff5fc4c429e3cbcbbca20))
+* run integration on change and weekly instead of nightly ([fbf30c5](https://github.com/Olensys/terraform-google-service-account/commit/fbf30c52b1d038eb1bb1ddcc7501177b3028976d))
+
 ## 1.1.0
 
 ### Fixes
