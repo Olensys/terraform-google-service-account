@@ -18,8 +18,8 @@ module "this" {
   project_id    = var.project_id
   names         = [var.name]
   prefix        = ""
-  display_name  = var.name
-  description   = "${var.context.application} ${var.context.environment} service account managed by Terraform"
+  display_name  = var.display_name == null ? var.name : var.display_name
+  description   = var.description == null ? "${var.context.application} ${var.context.environment} service account managed by Terraform" : var.description
   project_roles = local.project_role_bindings
   generate_keys = var.create_key
 }

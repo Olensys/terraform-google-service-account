@@ -4,7 +4,7 @@ Service account with project roles, optional GKE Workload Identity binding and i
 
 ## Opinions
 
-- Exactly one service account per module instance; the account id is `name` (6 to 30 characters), so two instances never collide.
+- Exactly one service account per module instance; the account id is `name` (6 to 30 characters), so two instances never collide. The display name defaults to `name` and the description to `<application> <environment> service account managed by Terraform`; `display_name` and `description` override them, mainly so an existing account can be imported without a diff.
 - Project roles are granted additively (`google_project_iam_member`), never authoritatively.
 - Workload Identity (`roles/iam.workloadIdentityUser`) and impersonation (`roles/iam.serviceAccountTokenCreator`) are granted on the service account itself, not the project.
 - Keys are a last resort: `create_key` is off by default and rejected when `context.environment` is `prod`. A created key lives in state and is exposed only through the sensitive `key` output.
@@ -28,6 +28,17 @@ module "this" {
 
   project_roles = ["roles/logging.logWriter"]
   labels  = module.naming.labels
+}
+```
+
+## Adopting an existing service account
+
+Every input has a default equal to the value the module used to hard-code, so existing callers see no plan diff. To import an account created elsewhere, set `display_name` and `description` to its live values (an empty string for no description) and run:
+
+```hcl
+import {
+  to = module.this.module.this[0].google_service_account.service_accounts["<name>"]
+  id = "projects/my-project/serviceAccounts/<name>@my-project.iam.gserviceaccount.com"
 }
 ```
 
@@ -67,6 +78,8 @@ module "this" {
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | GCP project that owns the service account. | `string` | n/a | yes |
 | <a name="input_create"></a> [create](#input\_create) | Whether to create any resources. Set false to create nothing. | `bool` | `true` | no |
 | <a name="input_create_key"></a> [create\_key](#input\_create\_key) | Create a service account key. A last resort: forbidden when context.environment is prod. The key is stored in state. | `bool` | `false` | no |
+| <a name="input_description"></a> [description](#input\_description) | Description of the service account. Null (default) uses "<application> <environment> service account managed by Terraform" built from context. Pass an empty string for no description. | `string` | `null` | no |
+| <a name="input_display_name"></a> [display\_name](#input\_display\_name) | Display name of the service account. Null (default) uses name. Set it to adopt an existing account whose display name differs from its id. | `string` | `null` | no |
 | <a name="input_impersonators"></a> [impersonators](#input\_impersonators) | IAM members (for example user:a@example.com or serviceAccount:x@p.iam.gserviceaccount.com) granted roles/iam.serviceAccountTokenCreator on this service account. | `list(string)` | `[]` | no |
 | <a name="input_labels"></a> [labels](#input\_labels) | Kept for interface consistency. Service accounts do not support labels; the merged map is only exposed through the labels output. | `map(string)` | `{}` | no |
 | <a name="input_project_roles"></a> [project\_roles](#input\_project\_roles) | Project-level roles granted to the service account in project\_id, for example roles/storage.objectViewer. | `list(string)` | `[]` | no |
