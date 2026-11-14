@@ -66,6 +66,26 @@ variable "create_key" {
   default     = false
 }
 
+variable "display_name" {
+  description = "Display name of the service account. Null (default) uses name. Set it to adopt an existing account whose display name differs from its id."
+  type        = string
+  default     = null
+  validation {
+    condition     = var.display_name == null ? true : length(var.display_name) <= 100
+    error_message = "display_name must be at most 100 characters."
+  }
+}
+
+variable "description" {
+  description = "Description of the service account. Null (default) uses \"<application> <environment> service account managed by Terraform\" built from context. Pass an empty string for no description."
+  type        = string
+  default     = null
+  validation {
+    condition     = var.description == null ? true : length(var.description) <= 256
+    error_message = "description must be at most 256 characters."
+  }
+}
+
 variable "labels" {
   description = "Kept for interface consistency. Service accounts do not support labels; the merged map is only exposed through the labels output."
   type        = map(string)
