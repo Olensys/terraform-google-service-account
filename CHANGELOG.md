@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/Olensys/terraform-google-service-account/compare/v1.1.2...v1.2.0) (2026-11-14)
+
+
+### Features
+
+* add display_name and description pass-through inputs ([#6](https://github.com/Olensys/terraform-google-service-account/issues/6)) ([f81343b](https://github.com/Olensys/terraform-google-service-account/commit/f81343b58812250b683592f1bbfeef3d89b9f31c))
+
 ## [1.1.2](https://github.com/Olensys/terraform-google-service-account/compare/v1.1.1...v1.1.2) (2026-10-24)
 
 
